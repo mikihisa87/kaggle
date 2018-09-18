@@ -6,7 +6,7 @@ import os
 os.environ['OMP_NUM_THREADS'] = '4'
 import gc
 
-path = '/Users/wolheelee/python/kaggle/TalkingData/input/'
+path = '/Users/user/python/kaggle/TalkingData/input/'
 dtypes = {
     'ip'    : 'uint32',
     'app'   : 'uint16',
