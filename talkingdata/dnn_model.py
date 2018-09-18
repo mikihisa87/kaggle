@@ -165,7 +165,7 @@ def do_var( df, group_cols, counted, agg_type='float32', show_max=False, show_ag
     return( df )
 
 
-#path = '/Users/wolheelee/python/kaggle/TalkingData/input/'
+#path = '/Users/user/python/kaggle/TalkingData/input/'
 
 
 dtypes = {
