@@ -8,11 +8,8 @@ import lightgbm as lgb
 import gc
 import os
 
-###### Feature extraction ######
+#Feature extraction
 
-#### Extracting next click feature
-    ### Taken help from https://www.kaggle.com/nanomathias/feature-engineering-importance-testing
-    ###Did some Cosmetic changes
 predictors=[]
 def do_next_Click( df,agg_suffix='nextClick', agg_type='float32'):
 
@@ -86,10 +83,7 @@ def do_prev_Click( df,agg_suffix='prevClick', agg_type='float32'):
         gc.collect()
     return (df)
 
-
-
-
-## Below a function is written to extract count feature by aggregating different cols
+#Below a function is written to extract count feature by aggregating different cols
 def do_count( df, group_cols, agg_type='uint32', show_max=False, show_agg=True ):
     agg_name='{}count'.format('_'.join(group_cols))
     if show_agg:
@@ -105,7 +99,7 @@ def do_count( df, group_cols, agg_type='uint32', show_max=False, show_agg=True )
     gc.collect()
     return( df )
 
-##  Below a function is written to extract unique count feature from different cols
+#Below a function is written to extract unique count feature from different cols
 def do_countuniq( df, group_cols, counted, agg_type='uint32', show_max=False, show_agg=True ):
     agg_name= '{}_by_{}_countuniq'.format(('_'.join(group_cols)),(counted))
     if show_agg:
@@ -120,7 +114,7 @@ def do_countuniq( df, group_cols, counted, agg_type='uint32', show_max=False, sh
 #     print('predictors',predictors)
     gc.collect()
     return( df )
-### Below a function is written to extract cumulative count feature  from different cols
+#Below a function is written to extract cumulative count feature  from different cols
 def do_cumcount( df, group_cols, counted,agg_type='uint32', show_max=False, show_agg=True ):
     agg_name= '{}_by_{}_cumcount'.format(('_'.join(group_cols)),(counted))
     if show_agg:
@@ -135,7 +129,7 @@ def do_cumcount( df, group_cols, counted,agg_type='uint32', show_max=False, show
 #     print('predictors',predictors)
     gc.collect()
     return( df )
-### Below a function is written to extract mean feature  from different cols
+#Below a function is written to extract mean feature  from different cols
 def do_mean( df, group_cols, counted, agg_type='float32', show_max=False, show_agg=True ):
     agg_name= '{}_by_{}_mean'.format(('_'.join(group_cols)),(counted))
     if show_agg:
@@ -166,7 +160,7 @@ def do_var( df, group_cols, counted, agg_type='float32', show_max=False, show_ag
     gc.collect()
     return( df )
 
-###  A function is written to train the lightGBM model with different given parameters
+#A function is written to train the lightGBM model with different given parameters
 if debug:
     print('*** debug parameter set: this is a test run for debugging purposes ***')
 
@@ -244,13 +238,13 @@ def DO(frm,to,fileno):
             }
 
     print('loading train data...',frm,to)
-    train_df = pd.read_csv("/Users/wolheelee/python/kaggle/TalkingData/input/train.csv", parse_dates=['click_time'], skiprows=range(1,frm), nrows=to-frm, dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'is_attributed'])
+    train_df = pd.read_csv("/Users/user/python/kaggle/TalkingData/input/train.csv", parse_dates=['click_time'], skiprows=range(1,frm), nrows=to-frm, dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'is_attributed'])
 
     print('loading test data...')
     if debug:
-        test_df = pd.read_csv("/Users/wolheelee/python/kaggle/TalkingData/input/test.csv", nrows=100000, parse_dates=['click_time'], dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'click_id'])
+        test_df = pd.read_csv("/Users/user/python/kaggle/TalkingData/input/test.csv", nrows=100000, parse_dates=['click_time'], dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'click_id'])
     else:
-        test_df = pd.read_csv("/Users/wolheelee/python/kaggle/TalkingData/input/test.csv", parse_dates=['click_time'], dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'click_id'])
+        test_df = pd.read_csv("/Users/user/python/kaggle/TalkingData/input/test.csv", parse_dates=['click_time'], dtype=dtypes, usecols=['ip','app','device','os', 'channel', 'click_time', 'click_id'])
 
     len_train = len(train_df)
     train_df=train_df.append(test_df)
